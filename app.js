@@ -25,7 +25,7 @@ app.use('/users', users)
 
 //get method
 app.get('/', (req, res) =>{
-  res.send('Hello World!');
+  res.redirect('/wiki');
 })
 
 
