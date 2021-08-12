@@ -3,12 +3,11 @@ const router = express.Router()
 const {addPage} = require("../views");
 const { Page } = require("../models");
 const wikipage = require("../views/wikipage");
+const main = require("../views/main");
 
-
-
-
-router.get('/', (req, res) => {
-  res.send('hello world, from wiki')
+router.get('/', async (req, res) => {
+  let allPages = await Page.findAll()
+  res.send(main(allPages))
 })
 
 
@@ -24,7 +23,7 @@ router.post('/', async (req, res, next) => {
     });
 
     // make sure we only redirect *after* our save is complete! Don't forget to `await` the previous step. `create` returns a Promise.
-    res.redirect('/');
+    res.redirect(`/wiki/${page.slug}`);
   } catch (error) { next(error) }
 });
 
