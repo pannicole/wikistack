@@ -39,6 +39,13 @@ const User = db.define('user', {
   },
 });
 
+Page.beforeValidate( (pageInstance) => {
+  console.log(pageInstance)
+  console.log('before', pageInstance.dataValues.slug)
+  pageInstance.dataValues.slug = pageInstance.dataValues.title.replace(/\s+/g, '_').replace(/\W/g, '');
+  console.log('after', pageInstance.slug)
+})
+
 
 module.exports = {
   db,
